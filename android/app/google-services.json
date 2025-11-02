@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "408433015967",
+    "project_id": "thevibinapple",
+    "storage_bucket": "thevibinapple.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408433015967:android:33c3946f8335bdbe7476aa",
+        "android_client_info": {
+          "package_name": "com.example.vibin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408433015967-agnqqmtu7tfrujd7gmofc269rare8nb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCDk4ok_7PkBKQ_FyUmolPsmrqrv_kou0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "408433015967-agnqqmtu7tfrujd7gmofc269rare8nb6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "408433015967-qi6u8m725vp9o69cjrmsjtggakoiban0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vibin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
