@@ -49,3 +49,5 @@ Built with cross-platform responsiveness, Hive for local storage, and real-time 
    ```bash
    git clone https://github.com/Mayankidk/Vibin-App-Flutter.git
    cd Vibin-App-Flutter
+   flutter pub get
+   flutter run
