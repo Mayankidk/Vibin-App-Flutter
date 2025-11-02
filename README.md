@@ -49,5 +49,22 @@ Built with cross-platform responsiveness, Hive for local storage, and real-time 
    ```bash
    git clone https://github.com/Mayankidk/Vibin-App-Flutter.git
    cd Vibin-App-Flutter
+   
+2. Install Dependencies
+   ```bash
    flutter pub get
    flutter run
+
+3. Set Up Environment Variables
+   ```bash
+   SUPA_URL=your-supabase-url
+   SUPA_ANON_KEY=your-anon-key
+
+4. Run the App
+   ```bash
+   flutter run
+
+5. (Optional) Build Release Version
+   ```bash
+   flutter build apk --release
+
