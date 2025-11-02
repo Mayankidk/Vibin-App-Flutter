@@ -32,7 +32,6 @@ void main() async {
 
   await Supabase.initialize(
     url: dotenv.env['SUPA_URL'] ?? '',
-    //url: 'https://mbfxiajvisqnrzukkopo.supabase.co',
     anonKey: dotenv.env['ANON_KEY'] ?? '',
   );
 
