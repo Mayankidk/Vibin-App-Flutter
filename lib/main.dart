@@ -11,7 +11,7 @@ import 'notification_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide User;
-import 'package:vibin/services/sync_service.dart'; // 👈 NEW: Import the sync service
+//import 'package:vibin/services/sync_service.dart'; // 👈 NEW: Import the sync service
 
 void main() async {
   // Ensure Flutter is initialized
@@ -86,23 +86,8 @@ class MyApp extends StatelessWidget {
           final firebaseUser = snapshot.data;
 
           if (firebaseUser != null) {
-            // ✅ Logged in to Firebase: Now wait for Supabase sync
-            return FutureBuilder<void>(
-              // CRITICAL: Call the synchronization function
-              future: AuthSyncService().synchronizeSupabaseUser(firebaseUser),
-              builder: (context, futureSnapshot) {
-                // Show a loading indicator while the token exchange is happening
-                if (futureSnapshot.connectionState == ConnectionState.waiting) {
-                  return const Scaffold(
-                    body: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-                // Once sync is done (success or failure), proceed to the home screen
-                return const HomeScreen();
-              },
-            );
+            // ✅ Logged in to Firebase, no Supabase sync needed
+            return const HomeScreen();
           }
           return const WelcomePage(); // ❌ Not logged in
         },

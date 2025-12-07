@@ -252,7 +252,29 @@ class _ProjectPageState extends State<ProjectPage> {
                 subtitle: const Text("Uploaded"),
                 trailing: IconButton(
                   icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () => _deleteSupabaseRecording(record),
+                  onPressed: () async {
+                    final confirm = await showDialog<bool>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Delete Recording'),
+                        content: const Text('Are you sure you want to delete this recording?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, false), // Cancel
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, true), // Confirm
+                            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+                          ),
+                        ],
+                      ),
+                    );
+
+                    if (confirm == true) {
+                      _deleteSupabaseRecording(record); // Proceed with deletion
+                    }
+                  },
                 ),
                 onTap: () => _playRecording(networkUrl: record['url']),
               );

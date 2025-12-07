@@ -433,38 +433,35 @@ class ContentManagementPage extends StatelessWidget {
                       if (!confirm) return;
 
                       try {
+                        // 1️⃣ Directly use Firebase UID as folder name (NEW SYSTEM)
                         final firebaseUserId = project['userId'] as String;
-                        final supabaseMap = await Supabase.instance.client
-                            .from('profiles')
-                            .select('supabase_uid')
-                            .eq('firebase_uid', firebaseUserId)
-                            .maybeSingle();
-                        if (supabaseMap == null) {
-                          print("No Supabase UID found for Firebase UID $firebaseUserId");
-                        } else {
-                          final supabaseUserId = supabaseMap['supabase_uid'] as String;
-                          final fileName = project['fileName'] as String;
-                          final filePath = "$supabaseUserId/$fileName";
-                          final deletedFiles = await Supabase.instance.client
-                              .storage
-                              .from('recordings')
-                              .remove([filePath]);
-                          print("Deleted files: ${deletedFiles.map((f) => f.name).toList()}");
-                        }
-                        // 2️⃣ Delete Firestore project + update user
+                        final fileName = project['fileName'] as String;
+                        final filePath = "$firebaseUserId/$fileName";
+
+                        // Delete from Supabase Storage
+                        final deletedFiles = await Supabase.instance.client
+                            .storage
+                            .from('recordings')
+                            .remove([filePath]);
+
+                        print("Deleted files: ${deletedFiles.map((f) => f.name).toList()}");
+
+                        // 2️⃣ Delete Firestore project + decrement user counter
                         final batch = FirebaseFirestore.instance.batch();
 
                         final projectRef = projectsRef.doc(projects[index].id);
                         batch.delete(projectRef);
 
-                        final userRef = FirebaseFirestore.instance.collection('users').doc(project['userId']);
+                        final userRef =
+                        FirebaseFirestore.instance.collection('users').doc(firebaseUserId);
+
                         batch.update(userRef, {
                           'projects': FieldValue.increment(-1),
                         });
 
                         await batch.commit();
 
-                        // 3️⃣ Update local list / UI
+                        // 3️⃣ Update local UI state
                         projects.removeAt(index);
                         _showSnack(context, "Project deleted successfully!");
                       } catch (e) {
